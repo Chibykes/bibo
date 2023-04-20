@@ -57,10 +57,10 @@ export default function Dashboard({ leaves }) {
                 <p className='col-span-1 text-sm p-3 py-4'>{index+1}</p>
                 <div className='col-span-1 text-sm p-3 py-4'>
                   <div className='relative h-10 w-10 rounded-full overflow-hidden'>
-                    <Image  alt="" 
+                    <Image 
+                      alt="" 
                       className='object-fill'
-                      src={passport} 
-                      alt=""
+                      src={passport}
                       fill
                     />
                   </div>
