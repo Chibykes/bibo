@@ -16,7 +16,7 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(form.username === "superadmin"){
-      if(form.password === "censia2022"){
+      if(form.password === "bibo2023"){
         toast.success('Login Successful');
         return router.push('/dashboard');
       }
