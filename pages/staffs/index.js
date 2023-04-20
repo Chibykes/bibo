@@ -1,26 +1,21 @@
 import Head from 'next/head';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-
-import { IoIosPeople } from 'react-icons/io';
-import Sidebar from '../../components/Sidebar';
-import Navbar from '../../components/Navbar';
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MdModeEdit } from 'react-icons/md';
+import Navbar from '../../components/Navbar';
+import Sidebar from '../../components/Sidebar';
+import { read_database } from '../../hooks/firebase';
 
-export default function Dashboard() {
 
-  const [staffs, setStaffs] = useState([]);
-  useEffect(() => {
-    setStaffs(JSON.parse(localStorage.getItem('staffs')) || []);
-  }, []);
+
+export default function Staffs({ staffs }) {
+
+  console.table(staffs);
 
   return (
     <div>
       <Head>
-        <title>Staffs - Censia.ng</title>
+        <title>Staffs - Bibo</title>
         <meta name="description" content="Census Mnagement System" />
         <link rel="icon" href="/favicon.png" />
       </Head>
@@ -59,11 +54,11 @@ export default function Dashboard() {
             {staffs?.map(({ passport, firstname, lastname, department, email, username }, index) => (
               <div key={index} className='grid grid-cols-12 items-center bg-white text-black'>
                 <p className='col-span-1 text-sm p-3 py-4'>{index+1}</p>
-                <p className='col-span-1 text-sm p-3 py-4'>
+                <div className='col-span-1 text-sm p-3 py-4'>
                   <div className='relative h-10 w-10 rounded-full overflow-hidden'>
                     <Image className='object-fill' src={passport} fill/>
                   </div>
-                </p>
+                </div>
                 <p className='col-span-3 text-sm p-3 py-4'>{firstname} {lastname}</p>
                 <p className='col-span-2 text-sm p-3 py-4'>{department}</p>
                 <p className='col-span-2 text-sm p-3 py-4'>{email}</p>
@@ -83,4 +78,16 @@ export default function Dashboard() {
 
     </div>
   )
+}
+
+
+
+export async function getServerSideProps(context){
+
+  return {
+    props: {
+      staffs: await read_database("staffs")
+    }
+  }
+
 }

@@ -5,8 +5,7 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 
 import { IoIosPeople } from 'react-icons/io';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast from 'react-hot-toast';
 
 export default function Home() {
 
@@ -18,22 +17,22 @@ export default function Home() {
     e.preventDefault();
     if(form.username === "superadmin"){
       if(form.password === "censia2022"){
-        toast('✅ Login Successful');
+        toast.success('Login Successful');
         return router.push('/dashboard');
       }
       
-      return toast('❌ Password Incorrect');
+      return toast.error('Password Incorrect');
     }
 
 
     let staff = JSON.parse(localStorage.getItem('staffs') || '[]')?.find(s => s.username === form.username);
     if(staff){
       if(form.password === staff.password){
-        toast('✅ Login Successful');
+        toast.success('Login Successful');
         return router.push('/dashboard');
       }
       
-      return toast('❌ Password Incorrect');
+      return toast.error('Password Incorrect');
     }
   }
 
@@ -44,30 +43,17 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Censia.ng</title>
-        <meta name="description" content="Census Mnagement System" />
+        <title>Bibo - SAS</title>
+        <meta name="description" content="Bibo - Staff Apprasial System" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-
-      <ToastContainer
-					position="top-right"
-					autoClose={5000}
-					hideProgressBar={false}
-					newestOnTop={true}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme="light"
-				/>
 
       <main className="fixed top-0 left-0 w-full h-full bg-app-main flex justify-center items-center">
         <div className='w-2/3 h-full flex justify-center items-center'>
           <p className='flex items-center justify-center gap-2 pb-4 text-2xl font-bold'>
             <IoIosPeople className="text-white text-4xl" />
             <span className='text-white text-3xl'>
-              Censia.ng
+              Bibo
             </span>
           </p>
         </div>

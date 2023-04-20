@@ -20,7 +20,7 @@ export default function People() {
   return (
     <div>
       <Head>
-        <title>People - Censia.ng</title>
+        <title>People - Bibo</title>
         <meta name="description" content="Census Mnagement System" />
         <link rel="icon" href="/favicon.png" />
       </Head>

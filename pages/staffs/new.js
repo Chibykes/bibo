@@ -7,54 +7,55 @@ import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
 import { BsFillCloudUploadFill } from 'react-icons/bs';
 import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast from 'react-hot-toast';
+import { add_doc, uploadFile } from '../../hooks/firebase';
 
 export default function New() {
   
   const [form, setForm] = useState({});
+  const [passport, setPassport] = useState("");
 
   const uploadPassport = () => document.querySelector('[name="passport"]').click();
 
   const showImage = (e) => {
     var reader = new FileReader();
-    reader.onload = (e) => setForm({...form, passport: reader.result});
+    reader.onload = (e) => setPassport(reader.result);
     reader.readAsDataURL(e.target.files[0]);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      localStorage.setItem('staffs', JSON.stringify([...JSON.parse(localStorage.getItem('staffs') || `[]`), form]));
-    } catch(e){
-      return toast('❌ Passport size too large max (512kb)');
-    }
-    e.target.reset();
-    setForm({  });
 
-    toast('✅ Staff Added Successfully')
+    if(!passport){
+      return toast.error("Passport not uploaded");
+    }
+
+    let passportURL = await uploadFile(
+      (form.firstname.toLowerCase()+"-"+form.lastname.toLowerCase()).replace(" ", ""),
+      "image",
+      passport
+    )
+
+    await add_doc("staffs", {
+      ...form, 
+      sid: Math.floor((Math.random() * (99999-11111))+11111),
+      passport: passportURL 
+    });
+
+    e.target.reset();
+    setPassport("");
+    setForm({  });
   }
 
   return (
     <div>
       <Head>
-        <title>New Staff - Censia.ng</title>
+        <title>New Staff - Bibo</title>
         <meta name="description" content="Census Mnagement System" />
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <ToastContainer
-					position="top-right"
-					autoClose={5000}
-					hideProgressBar={false}
-					newestOnTop={true}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme="light"
-				/>
+      
 
 
       <main className="fixed top-0 left-0 w-full h-full bg-neutral-100 flex justify-center">
@@ -76,8 +77,8 @@ export default function New() {
                   </span>
                 </p>
 
-                <div style={{ backgroundImage: `url(${form.passport})` }} onClick={uploadPassport} className='ml-auto grid place-content-center border border-black border-dashed w-52 h-52 bg-neutral-100 bg-no-repeat bg-contain bg-center'>
-                  {!form.passport && <div className="inline-flex justify-center items-center gap-2 p-2 bg-white rounded-md font-bold">
+                <div style={{ backgroundImage: `url(${passport})` }} onClick={uploadPassport} className='ml-auto grid place-content-center border border-black border-dashed w-52 h-52 bg-neutral-100 bg-no-repeat bg-contain bg-center'>
+                  {!passport && <div className="inline-flex justify-center items-center gap-2 p-2 bg-white rounded-md font-bold">
                     <BsFillCloudUploadFill className="" />
                     <span className=''>Passport</span>
                   </div>}
@@ -174,31 +175,6 @@ export default function New() {
                   />
                 </div>
                 
-                <Input
-                  name="username"
-                  onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
-                  label="Username"
-                  placeholder="Enter Username"
-                  required
-                />
-                
-                <Input
-                  name="password"
-                  onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
-                  label="Password"
-                  placeholder="Enter Password"
-                  type="password"
-                  required
-                />
-                
-                <Input
-                  name="confirm_password"
-                  onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
-                  label="Confirm Password"
-                  placeholder="Confirm Password"
-                  type="password"
-                  required
-                />
 
                 <div className='col-span-3'>
                   <div className='w-1/2 mx-auto'>

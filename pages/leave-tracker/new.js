@@ -5,57 +5,44 @@ import Button from '../../components/Button';
 import { IoIosPeople } from 'react-icons/io';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
-import { useState } from 'react';
 import { BsFillCloudUploadFill } from 'react-icons/bs';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
-import Select from '../../components/Select';
 
 export default function New() {
-
+  
   const [form, setForm] = useState({});
 
   const uploadPassport = () => document.querySelector('[name="passport"]').click();
 
   const showImage = (e) => {
     var reader = new FileReader();
-    reader.onload = () => setForm({...form, passport: reader.result});
+    reader.onload = (e) => setForm({...form, passport: reader.result});
     reader.readAsDataURL(e.target.files[0]);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     try{
-      localStorage.setItem('people', JSON.stringify([...JSON.parse(localStorage.getItem('people') || `[]`), form]));
+      localStorage.setItem('staffs', JSON.stringify([...JSON.parse(localStorage.getItem('staffs') || `[]`), form]));
     } catch(e){
-      return toast.error('Passport size too large max (512kb)')
+      return toast.error('Passport size too large max (512kb)');
     }
     e.target.reset();
     setForm({  });
 
-    toast.success('Person Added Successfully')
+    toast.success('Staff Added Successfully')
   }
 
   return (
     <div>
       <Head>
-        <title>New Person - Bibo</title>
+        <title>New Staff - Bibo</title>
         <meta name="description" content="Census Mnagement System" />
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-			/>
+      
 
 
       <main className="fixed top-0 left-0 w-full h-full bg-neutral-100 flex justify-center">
@@ -63,7 +50,7 @@ export default function New() {
 
         <div className="w-4/5 overflow-auto">
 
-          <Navbar page="People" />
+          <Navbar page="Staffs" />
 
           <div className='p-12 space-y-3'>
 
@@ -73,7 +60,7 @@ export default function New() {
                 <p className='flex items-center justify-start gap-2 pb-4 text-2xl font-bold'>
                   <IoIosPeople className="text-black text-4xl" />
                   <span className='text-black text-3xl'>
-                    Record New Person
+                    New Staff Registration
                   </span>
                 </p>
 
@@ -90,7 +77,7 @@ export default function New() {
                 <p className='col-span-3 italics'>
                   Inputs with a <span className="text-red-500">*</span> means they are required
                 </p>
-                
+
                 <Input
                   name="firstname"
                   onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
@@ -108,10 +95,10 @@ export default function New() {
                 />
                 
                 <Input
-                  name="othername"
+                  name="othernames"
                   onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
                   label="Other names"
-                  placeholder="Enter middle name"
+                  placeholder="Enter Middle name"
                 />
                 
                 <Input
@@ -132,6 +119,14 @@ export default function New() {
                 />
                 
                 <Input
+                  name="department"
+                  onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
+                  label="Department"
+                  placeholder="Enter Census Staff Department"
+                  required
+                />
+                
+                <Input
                   name="dob"
                   onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
                   type="date"
@@ -139,67 +134,12 @@ export default function New() {
                   placeholder="Enter Date of Birth"
                   required
                 />
-                
-                <Select
-                  name="gender"
-                  onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
-                  label="Gender"
-                  options={['Male', 'Female']}
-                  required
-                />
 
                 <Input
-                  name="height"
-                  type="number"
-                  onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
-                  label="Height (in cm)"
-                  placeholder="Enter Height"
-                  required
-                />
-
-                <Select
                   name="state"
                   onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
                   label="State of Origin"
-                  options={[
-                  "Abuja",
-                  "Abia",
-                  "Adamawa",
-                  "Akwa Ibom",
-                  "Anambra",
-                  "Bauchi",
-                  "Bayelsa",
-                  "Benue",
-                  "Borno",
-                  "Cross River",
-                  "Delta",
-                  "Ebonyi",
-                  "Edo",
-                  "Ekiti",
-                  "Enugu",
-                  "Gombe",
-                  "Imo",
-                  "Jigawa",
-                  "Kaduna",
-                  "Kano",
-                  "Katsina",
-                  "Kebbi",
-                  "Kogi",
-                  "Kwara",
-                  "Lagos",
-                  "Nasarawa",
-                  "Niger",
-                  "Ogun",
-                  "Ondo",
-                  "Osun",
-                  "Oyo",
-                  "Plateau",
-                  "Rivers",
-                  "Sokoto",
-                  "Taraba",
-                  "Yobe",
-                  "Zamfara"
-                  ]}
+                  placeholder="Enter State of Origin"
                   required
                 />
                 
@@ -211,15 +151,42 @@ export default function New() {
                   required
                 />
                 
-                <div className='col-span-2'>
+                <div className='col-span-3'>
                   <Input
                     name="address"
+                    value={form[this]}
                     onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
                     label="Residential Address"
                     placeholder="Enter Residential Address"
                     required
                   />
                 </div>
+                
+                <Input
+                  name="username"
+                  onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
+                  label="Username"
+                  placeholder="Enter Username"
+                  required
+                />
+                
+                <Input
+                  name="password"
+                  onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
+                  label="Password"
+                  placeholder="Enter Password"
+                  type="password"
+                  required
+                />
+                
+                <Input
+                  name="confirm_password"
+                  onChange={(e) => setForm({...form, [e.target.name]: e.target.value})}
+                  label="Confirm Password"
+                  placeholder="Confirm Password"
+                  type="password"
+                  required
+                />
 
                 <div className='col-span-3'>
                   <div className='w-1/2 mx-auto'>

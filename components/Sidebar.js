@@ -1,10 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { HiUsers } from 'react-icons/hi';
 import { ImBooks } from 'react-icons/im';
 import { IoIosPeople } from 'react-icons/io';
 import { MdDashboard } from 'react-icons/md';
-import { RiArrowDropDownLine, RiExchangeFill, RiFileUserFill } from 'react-icons/ri';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 
 export default function Sidebar() {
 
@@ -19,83 +17,118 @@ export default function Sidebar() {
   }
 
   return (
-    <div className='print:hidden w-1/5 py-6 px-4 bg-app-main space-y-6 shadow-2xl h-full'>
+    <div className='print:hidden w-1/5 py-6 bg-app-main space-y-6 shadow-2xl h-full overflow-auto'>
       <div className=''>
         <p className='flex items-center justify-center gap-2 pb-4 text-2xl font-bold'>
           <IoIosPeople className="text-white text-3xl" />
           <span className='text-white text-2xl'>
-            Censia.ng
+            Bibo
           </span>
         </p>
       </div>
 
       <div className='space-y-2'>
-        <Link className="flex gap-3 items-center p-3 text-sm text-white font-bold hover:bg-white hover:text-app-main rounded-md" href="/dashboard">
+        <Link className="flex gap-3 items-center p-3 text-sm text-white font-bold hover:bg-white hover:text-app-main" href="/dashboard">
           <MdDashboard />
           <span className=''>Dashboard</span>
         </Link>
         
         <div className='space-y-1'>
-          <div onClick={() => dropdown("books")} data-dropdown-for="books" className="flex gap-3 items-center p-3 text-sm font-bold bg-white text-app-main rounded-md" href="#">
+          <div onClick={() => dropdown("books")} data-dropdown-for="books" className="flex gap-3 items-center p-3 text-sm font-bold bg-gray-900 text-white" href="#">
             <ImBooks />
             <span className=''>Staffs</span>
             <RiArrowDropDownLine className='ml-auto' />
           </div>
 
-          <div className='max-h-full overflow-hidden space-y-1' data-dropdown="books">
-            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main rounded-md" href="/staffs/">
+          <div className='max-h-0 overflow-hidden space-y-1' data-dropdown="books">
+            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main" href="/staffs/">
               <MdDashboard className='invisible' />
               <span className=''>Overview</span>
             </Link>
-            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main rounded-md" href="/staffs/new">
+            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main" href="/staffs/new">
               <MdDashboard className='invisible' />
               <span className=''>New staff</span>
             </Link>
+            <Link 
+              className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main"
+              href="/staffs/check-in"
+            >
+              <MdDashboard className='invisible' />
+              <span className=''>Check-In</span>
+            </Link>
+            <Link 
+              className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main"
+              href="/staffs/check-out"
+            >
+              <MdDashboard className='invisible' />
+              <span className=''>Check-Out</span>
+            </Link>
           </div>
         </div>
-
-        {/* <div className='space-y-1'>
-          <div onClick={() => dropdown("users")} data-dropdown-for="users" className="flex gap-3 items-center p-3 text-sm fake:text-white font-bold bg-white text-app-main rounded-md" href="#">
-            <HiUsers />
-            <span className=''>Departments</span>
-            <RiArrowDropDownLine className='ml-auto' />
-          </div>
-
-          <div className='max-h-full overflow-hidden space-y-1' data-dropdown="users">
-            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main rounded-md" href="/departments/">
-              <MdDashboard className='invisible' />
-              <span className=''>Overview</span>
-            </Link>
-            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main rounded-md" href="/departments/new">
-              <MdDashboard className='invisible' />
-              <span className=''>Add New department</span>
-            </Link>
-          </div>
-        </div> */}
-        
         
         <div className='space-y-1'>
-          <div onClick={() => dropdown("loan")} data-dropdown-for="loan" className="flex gap-3 items-center p-3 text-sm fake:text-white font-bold bg-white text-app-main rounded-md" href="#">
-            <RiExchangeFill />
-            <span className=''>People</span>
+          <div onClick={() => dropdown("leave")} data-dropdown-for="leave" className="flex gap-3 items-center p-3 text-sm font-bold bg-gray-900 text-white" href="#">
+            <ImBooks />
+            <span className=''>Leave Tracker</span>
             <RiArrowDropDownLine className='ml-auto' />
           </div>
 
-          <div className='max-h-full overflow-hidden space-y-1' data-dropdown="loan">
-            <Link className="flex gap-3 items-center p-3 bg-app-light text-sm text-white hover:bg-white hover:text-app-main rounded-md" href="/people">
+          <div className='max-h-0 overflow-hidden space-y-1' data-dropdown="leave">
+            <Link 
+              className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main" 
+              href="/leave-tracker/"
+            >
               <MdDashboard className='invisible' />
               <span className=''>Overview</span>
             </Link>
-            <Link className="flex gap-3 items-center p-3 bg-app-light text-sm text-white hover:bg-white hover:text-app-main rounded-md" href="/people/new">
+            <Link 
+              className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main"
+              href="/leave-tracker/leave-application"
+            >
               <MdDashboard className='invisible' />
-              <span className=''>Add person</span>
+              <span className=''>Apply for Leave</span>
             </Link>
-            {/* <Link className="flex gap-3 items-center p-3 bg-app-light text-sm text-white hover:bg-white hover:text-app-main rounded-md" href="/people/statistics">
-              <MdDashboard className='invisible' />
-              <span className=''>Statistics</span>
-            </Link> */}
           </div>
         </div>
+
+        <div className='space-y-1'>
+          <div onClick={() => dropdown("tasks")} data-dropdown-for="tasks" className="flex gap-3 items-center p-3 text-sm font-bold bg-gray-900 text-white" href="#">
+            <ImBooks />
+            <span className=''>Tasks</span>
+            <RiArrowDropDownLine className='ml-auto' />
+          </div>
+
+          <div className='max-h-0 overflow-hidden space-y-1' data-dropdown="tasks">
+            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main" href="/tasks/">
+              <MdDashboard className='invisible' />
+              <span className=''>All Task</span>
+            </Link>
+            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main" href="/tasks/new">
+              <MdDashboard className='invisible' />
+              <span className=''>New Task</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className='space-y-1'>
+          <div onClick={() => dropdown("apprasial")} data-dropdown-for="apprasial" className="flex gap-3 items-center p-3 text-sm font-bold bg-gray-900 text-white" href="#">
+            <ImBooks />
+            <span className=''>Apprasial</span>
+            <RiArrowDropDownLine className='ml-auto' />
+          </div>
+
+          <div className='max-h-0 overflow-hidden space-y-1' data-dropdown="apprasial">
+            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main" href="/tasks/">
+              <MdDashboard className='invisible' />
+              <span className=''>Recommendations</span>
+            </Link>
+            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main" href="/tasks/new">
+              <MdDashboard className='invisible' />
+              <span className=''>Appraised Staff</span>
+            </Link>
+          </div>
+        </div>
+
 
       </div>
     </div>

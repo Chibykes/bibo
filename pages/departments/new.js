@@ -7,8 +7,7 @@ import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
 import { BsFillCloudUploadFill } from 'react-icons/bs';
 import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast from 'react-hot-toast';
 
 export default function New() {
   
@@ -27,12 +26,12 @@ export default function New() {
     try{
       localStorage.setItem('staffs', JSON.stringify([...JSON.parse(localStorage.getItem('staffs') || `[]`), form]));
     } catch(e){
-      return toast('❌ Passport size too large max (512kb)');
+      return toast.error('Passport size too large max (512kb)');
     }
     e.target.reset();
     setForm({  });
 
-    toast('✅ Staff Added Successfully')
+    toast.success('Staff Added Successfully')
   }
 
   return (
@@ -43,18 +42,7 @@ export default function New() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ToastContainer
-					position="top-right"
-					autoClose={5000}
-					hideProgressBar={false}
-					newestOnTop={true}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme="light"
-				/>
+      
 
 
       <main className="fixed top-0 left-0 w-full h-full bg-neutral-100 flex justify-center">
