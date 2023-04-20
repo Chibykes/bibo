@@ -71,7 +71,7 @@ export default function Dashboard({ staffs, checkins, leaves }) {
                   <div key={index} className='grid grid-cols-12 items-center bg-white text-black'>
                     <div className='col-span-2 text-sm p-3 py-4'>
                       <div className='relative h-10 w-10 rounded-full overflow-hidden'>
-                        <Image className='object-fill' src={passport} fill/>
+                        <Image  alt="" className='object-fill' src={passport} fill/>
                       </div>
                     </div>
                     <p className='col-span-4 text-sm p-3 py-4'>{firstname} {lastname}</p>
@@ -115,7 +115,7 @@ export default function Dashboard({ staffs, checkins, leaves }) {
                   <div key={index} className='grid grid-cols-12 items-center bg-white text-black'>
                     <div className='col-span-2 text-sm p-3 py-4'>
                       <div className='relative h-10 w-10 rounded-full overflow-hidden'>
-                        <Image className='object-fill' src={passport} fill/>
+                        <Image  alt="" className='object-fill' src={passport} fill/>
                       </div>
                     </div>
                     <p className='col-span-6 text-sm p-3 py-4'>{firstname} {lastname}</p>
