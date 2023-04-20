@@ -118,13 +118,19 @@ export default function Sidebar() {
           </div>
 
           <div className='max-h-0 overflow-hidden space-y-1' data-dropdown="apprasial">
-            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main" href="/tasks/">
+            <Link 
+              className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main" 
+              href="/recommendations/"
+            >
               <MdDashboard className='invisible' />
               <span className=''>Recommendations</span>
             </Link>
-            <Link className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main" href="/tasks/new">
+            <Link 
+              className="flex gap-3 items-center p-3 text-sm bg-app-light text-white hover:bg-white hover:text-app-main"
+              href="/appraised-staffs"
+            >
               <MdDashboard className='invisible' />
-              <span className=''>Appraised Staff</span>
+              <span className=''>Appraised Staffs</span>
             </Link>
           </div>
         </div>
